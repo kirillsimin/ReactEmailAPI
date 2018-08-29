@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { login } from '../api/auth';
+import AuthContext from '../AuthContext';
 
 class Login extends Component {
     state = {
@@ -7,13 +8,16 @@ class Login extends Component {
         password: ''
     };
 
+    componentWillMount() {
+        localStorage.clear();
+    }
+
     handleSubmit = async event => {
         event.preventDefault();
 
         const { email, password } = this.state;
         const response = await login(email, password);
-        console.log(response);
-        localStorage.setItem('jwt', response.data.token);
+        this.props.onAuth(response.data.token);
     };
 
     handleChange = event => {
@@ -41,4 +45,7 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default () =>
+    <AuthContext.Consumer>
+        {onAuth => <Login onAuth={onAuth} />}
+    </AuthContext.Consumer>;

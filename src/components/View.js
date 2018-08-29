@@ -11,17 +11,29 @@ class View extends Component {
         this.setState({ emails: emails.data });
     };
 
+    formatDate(sentAt) {
+        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        let date = new Date(sentAt);
+        return date.toLocaleDateString('en-US', options);
+    }
+
     renderEmails() {
+        let self = this;
         return this.state.emails.map(function(email, index) {
             return (
-                <div className={['panel', 'panel-default']} key={index}>
-                    <div className="panel-heading">
+                <div className="card border-secondary mb-3" key={index}>
+                    <h3 className="card-header">
                         {email.subject}
-                    </div>
-                    <div className="panel-body">
-                        <p>
-                            {email.text}
+                    </h3>
+                    <div className="card-body">
+                        <p className="card-text">
+                            <i>
+                                "{email.text}"
+                            </i>
                         </p>
+                    </div>
+                    <div className="card-footer text-muted">
+                        Sent on: {self.formatDate(email.sent_at)}
                     </div>
                 </div>
             );
@@ -29,12 +41,7 @@ class View extends Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                <p className="App-intro">View</p>
-                {this.renderEmails()}
-            </div>
-        );
+        return this.renderEmails();
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { register } from '../api/auth';
+import AuthContext from '../AuthContext';
 
 class Register extends Component {
     state = {
@@ -13,7 +14,7 @@ class Register extends Component {
 
         const { name, email, password } = this.state;
         const response = await register(name, email, password);
-        localStorage.setItem('jwt', response.data.token);
+        this.props.onAuth(response.data.token);
     };
 
     handleChange = event => {
@@ -46,4 +47,8 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default () =>
+    <AuthContext.Consumer>
+        {onAuth => <Register onAuth={onAuth} />}
+    </AuthContext.Consumer>;
+
