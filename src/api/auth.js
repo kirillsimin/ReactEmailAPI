@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 export function login(email, password) {
+    localStorage.clear();
     return axios.post('/api/login', { email, password });
 }
 
 export function register(name, email, password) {
+    localStorage.clear();
     return axios.post('/api/register', { name, email, password });
 }
 
@@ -16,7 +18,7 @@ export function logout() {
             return response;
         })
         .catch(error => {
-            if (error.message === 'Token has expired') {
+            if (error.response.data.message === 'Token has expired') {
                 localStorage.clear();
                 window.location.reload();
             }

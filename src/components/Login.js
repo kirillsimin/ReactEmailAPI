@@ -53,7 +53,7 @@ class Login extends Component {
                                     <small>Don't have an account yet?</small>
                                 </p>
                                 <Link className="float-right" to="/register">
-                                    <button type="button" class="btn btn-secondary btn-sm">
+                                    <button type="button" className="btn btn-secondary btn-sm">
                                         Register
                                     </button>
                                 </Link>

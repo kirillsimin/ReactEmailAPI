@@ -27,7 +27,6 @@ class Send extends Component {
         }
 
         if (response.data.message) {
-            console.log(response.data.message);
             this.setState({ message: 'Something went wrong.' });
         } else {
             this.setState({ message: null });

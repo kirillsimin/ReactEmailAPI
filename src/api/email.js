@@ -12,7 +12,7 @@ export function send(subject, text) {
             return response;
         })
         .catch(error => {
-            if (error.message === 'Token has expired') {
+            if (error.response.data.message === 'Token has expired') {
                 localStorage.clear();
                 window.location.reload();
             }
@@ -22,5 +22,16 @@ export function send(subject, text) {
 
 export function view() {
     setToken();
-    return axios.get('/api/emails');
+    return axios
+        .get('/api/emails')
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.data.message === 'Token has expired') {
+                localStorage.clear();
+                window.location.reload();
+            }
+            return error.response;
+        });
 }

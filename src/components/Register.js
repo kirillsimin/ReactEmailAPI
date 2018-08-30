@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { register } from '../api/auth';
 import AuthContext from '../AuthContext';
 
@@ -48,6 +49,16 @@ class Register extends Component {
                         </div>
 
                         <button className="btn btn-primary">Register</button>
+                        <div className="col-md-6 float-right">
+                            <p className="float-left">
+                                <small>Alaready have an account?</small>
+                            </p>
+                            <Link className="float-right" to="/">
+                                <button type="button" className="btn btn-secondary btn-sm">
+                                    Login
+                                </button>
+                            </Link>
+                        </div>
                     </fieldset>
                 </form>
             </div>
