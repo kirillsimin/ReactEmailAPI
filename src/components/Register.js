@@ -23,24 +23,32 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="col-md-6 offset-md-3">
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Name</label>
-                        <input name="name" className="form-control" onChange={this.handleChange} />
-                    </div>
+                    <fieldset>
+                        <legend>Create a new account and start sending emails</legend>
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input name="name" className="form-control" onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input name="email" className="form-control" onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input name="email" className="form-control" onChange={this.handleChange} />
+                        </div>
 
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" className="form-control" onChange={this.handleChange} />
-                    </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                className="form-control"
+                                onChange={this.handleChange}
+                            />
+                        </div>
 
-                    <button className="btn btn-success">Register</button>
+                        <button className="btn btn-primary">Register</button>
+                    </fieldset>
                 </form>
             </div>
         );
@@ -51,4 +59,3 @@ export default () =>
     <AuthContext.Consumer>
         {onAuth => <Register onAuth={onAuth} />}
     </AuthContext.Consumer>;
-

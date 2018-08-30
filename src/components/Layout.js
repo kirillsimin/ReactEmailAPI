@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logout from './Logout';
+import Navigation from './Navigation';
 
 export default class Layout extends Component {
     render() {
@@ -7,11 +7,10 @@ export default class Layout extends Component {
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                     <div className="navbar-brand" href="#">
+                        <i className="fa fa-fw fa-envelope-open"/>
                         Unitrends - Kirill Simin
                     </div>
-                    <div className="collapse navbar-collapse">
-                        <Logout jwt={this.props.jwt} />
-                    </div>
+                    <Navigation jwt={this.props.jwt} />
                 </nav>
                 <br />
                 {this.props.children}

@@ -18,6 +18,15 @@ class View extends Component {
     }
 
     renderEmails() {
+        if (this.state.emails.length === 0) {
+            return (
+                <div className="row">
+                    <div className="col-md-12">
+                        <p>Please send at least one email.</p>
+                    </div>
+                </div>
+            );
+        }
         let self = this;
         return this.state.emails.map(function(email, index) {
             return (

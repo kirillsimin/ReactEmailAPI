@@ -6,7 +6,14 @@ function setToken() {
 
 export function send(subject, text) {
     setToken();
-    return axios.post('/api/emails', { subject, text });
+    return axios
+        .post('/api/emails', { subject, text })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
 }
 
 export function view() {

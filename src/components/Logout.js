@@ -18,13 +18,9 @@ export default class Logout extends Component {
     };
 
     render() {
-        if (!this.props.jwt) {
-            return null;
-        }
-
         return (
             <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
-                <button className="btn btn-secondary my-2 my-sm-0 offset-md-11" type="submit">
+                <button className="btn btn-secondary my-2 my-sm-0" type="submit">
                     Logout
                 </button>
             </form>

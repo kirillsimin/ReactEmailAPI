@@ -6,7 +6,9 @@ class Send extends Component {
     state = {
         subject: '',
         text: '',
-        status: null
+        status: null,
+        errors: [],
+        message: null
     };
 
     handleSubmit = async event => {
@@ -17,24 +19,63 @@ class Send extends Component {
         if (response.status) {
             this.setState({ status: response.status });
         }
+
+        if (response.data.errors) {
+            this.setState({ errors: response.data.errors });
+        } else {
+            this.setState({ errors: [] });
+        }
+
+        if (response.data.message) {
+            console.log(response.data.message);
+            this.setState({ message: 'Something went wrong.' });
+        } else {
+            this.setState({ message: null });
+        }
     };
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    renderErrorBox() {
+        if (this.state.errors.length === 0) {
+            return null;
+        }
+        return (
+            <div className="alert alert-warning">
+                <strong>Oh snap!</strong>
+                <ul>
+                    {this.renderErrors(this.state.errors.subject)}
+                    {this.renderErrors(this.state.errors.text)}
+                </ul>
+            </div>
+        );
+    }
+
+    renderErrors(field) {
+        return field.map(function(error, index) {
+            return (
+                <li key={index}>
+                    {error}
+                </li>
+            );
+        });
+    }
+
     render() {
         if (this.state.status === 201) {
             return <Redirect to="/view-emails" />;
         }
 
-        if (this.state.status === 401) {
-            return <Redirect to="/" />;
-        }
-
         return (
-            <div className="App">
+            <div className="col-md-6 offset-md-3">
+                <p>
+                    {this.state.message}
+                </p>
+                {this.renderErrorBox()}
                 <form onSubmit={this.handleSubmit}>
+                    <legend>Send an email to yourself</legend>
                     <div className="form-group">
                         <label>Subject</label>
                         <input name="subject" className="form-control" onChange={this.handleChange} />

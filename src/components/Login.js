@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { login } from '../api/auth';
 import AuthContext from '../AuthContext';
 
@@ -26,20 +27,40 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="App">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input name="email" className="form-control" onChange={this.handleChange} />
-                    </div>
+            <div>
+                <div className="col-md-6 offset-md-3">
+                    <form onSubmit={this.handleSubmit}>
+                        <fieldset>
+                            <legend>Please log in to start sending emails</legend>
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input name="email" className="form-control" onChange={this.handleChange} />
+                            </div>
 
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" className="form-control" onChange={this.handleChange} />
-                    </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    className="form-control"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
 
-                    <button className="btn btn-success">Login</button>
-                </form>
+                            <button className="btn btn-primary">Login</button>
+                            <div className="col-md-6 float-right">
+                                <p className="float-left">
+                                    <small>Don't have an account yet?</small>
+                                </p>
+                                <Link className="float-right" to="/register">
+                                    <button type="button" class="btn btn-secondary btn-sm">
+                                        Register
+                                    </button>
+                                </Link>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         );
     }
