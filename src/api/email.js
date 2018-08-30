@@ -12,6 +12,10 @@ export function send(subject, text) {
             return response;
         })
         .catch(error => {
+            if (error.message === 'Token has expired') {
+                localStorage.clear();
+                window.location.reload();
+            }
             return error.response;
         });
 }
