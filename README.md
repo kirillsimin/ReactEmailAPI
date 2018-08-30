@@ -16,4 +16,6 @@ This package is intended as a front-end service only. It consumes several endpoi
 
 ## Notes
 
+Make sure you set up the local proxy to correctly consume the local API. Look for `proxy : /api : target` in `package.json`.
+
 Some monitoring tools that might be useful in an actual production environment are [BugSnag](https://www.bugsnag.com), [Sentry](https://sentry.io/), and [HotJar](https://www.hotjar.com/).
