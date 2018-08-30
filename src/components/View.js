@@ -3,7 +3,7 @@ import { view } from '../api/email';
 
 class View extends Component {
     state = {
-        emails: []
+        emails: null
     };
 
     componentWillMount = async () => {
@@ -18,6 +18,15 @@ class View extends Component {
     }
 
     renderEmails() {
+        if (this.state.emails === null) {
+            return (
+                <div className="row">
+                    <div className="col-md-12">
+                        <i class="fa fa-fw fa-spinner" /> Loading...
+                    </div>
+                </div>
+            );
+        }
         if (this.state.emails.length === 0) {
             return (
                 <div className="row">
