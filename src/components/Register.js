@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { register } from '../api/auth';
+import Errors from './Errors';
 import AuthContext from '../AuthContext';
 
 class Register extends Component {
@@ -15,7 +16,13 @@ class Register extends Component {
 
         const { name, email, password } = this.state;
         const response = await register(name, email, password);
-        this.props.onAuth(response.data.token);
+
+        if (response.data.errors) {
+            this.setState({ errors: response.data.errors });
+        } else {
+            this.props.onAuth(response.data.token);
+            this.setState({ errors: [] });
+        }
     };
 
     handleChange = event => {
@@ -25,6 +32,7 @@ class Register extends Component {
     render() {
         return (
             <div className="col-md-6 offset-md-3">
+                <Errors errors={this.state.errors} />
                 <form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <legend>Create a new account and start sending emails</legend>

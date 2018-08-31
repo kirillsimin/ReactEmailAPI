@@ -2,12 +2,26 @@ import axios from 'axios';
 
 export function login(email, password) {
     localStorage.clear();
-    return axios.post('/api/login', { email, password });
+    return axios
+        .post('/api/login', { email, password })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
 }
 
 export function register(name, email, password) {
     localStorage.clear();
-    return axios.post('/api/register', { name, email, password });
+    return axios
+        .post('/api/register', { name, email, password })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
 }
 
 export function logout() {
@@ -18,7 +32,7 @@ export function logout() {
             return response;
         })
         .catch(error => {
-            if (error.response.data.message === 'Token has expired') {
+            if (error.response.data.message) {
                 localStorage.clear();
                 window.location.reload();
             }

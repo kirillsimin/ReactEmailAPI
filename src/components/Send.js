@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { send } from '../api/email';
+import Errors from './Errors';
 
 class Send extends Component {
     state = {
@@ -37,31 +38,6 @@ class Send extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    renderErrorBox() {
-        if (this.state.errors.length === 0) {
-            return null;
-        }
-        return (
-            <div className="alert alert-warning">
-                <strong>Oh snap!</strong>
-                <ul>
-                    {this.renderErrors(this.state.errors.subject)}
-                    {this.renderErrors(this.state.errors.text)}
-                </ul>
-            </div>
-        );
-    }
-
-    renderErrors(field) {
-        return field.map(function(error, index) {
-            return (
-                <li key={index}>
-                    {error}
-                </li>
-            );
-        });
-    }
-
     render() {
         if (this.state.status === 201) {
             return <Redirect to="/view-emails" />;
@@ -72,7 +48,7 @@ class Send extends Component {
                 <p>
                     {this.state.message}
                 </p>
-                {this.renderErrorBox()}
+                <Errors errors={this.state.errors} />
                 <form onSubmit={this.handleSubmit}>
                     <legend>Send an email to yourself</legend>
                     <div className="form-group">

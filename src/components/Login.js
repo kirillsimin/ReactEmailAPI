@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../api/auth';
+import Errors from './Errors';
 import AuthContext from '../AuthContext';
 
 class Login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        errors: []
     };
 
     componentWillMount() {
@@ -18,7 +20,13 @@ class Login extends Component {
 
         const { email, password } = this.state;
         const response = await login(email, password);
-        this.props.onAuth(response.data.token);
+
+        if (response.data.error) {
+            this.setState({ errors: { error: [response.data.error] } });
+        } else {
+            this.setState({ errors: [] });
+            this.props.onAuth(response.data.token);
+        }
     };
 
     handleChange = event => {
@@ -29,6 +37,7 @@ class Login extends Component {
         return (
             <div>
                 <div className="col-md-6 offset-md-3">
+                    <Errors errors={this.state.errors} />
                     <form onSubmit={this.handleSubmit}>
                         <fieldset>
                             <legend>Please log in to start sending emails</legend>
