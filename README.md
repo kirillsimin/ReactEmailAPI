@@ -16,6 +16,8 @@ This package is intended as a front-end service only. It consumes several endpoi
 
 ## Notes
 
+Because of the size and the scope of the project, I opted not to use a state management package. For three endpoints, it's really not necessary to increase the complexity. The JWT is simply stored in the browser's localStorage, and params get passed down from component to component. In production level application, MobX or Redux should be used to manage application's state.
+
 Make sure you set up the local proxy to correctly consume the local API. Look for `proxy : /api : target` in `package.json`.
 
 Some monitoring tools that might be useful in an actual production environment are [BugSnag](https://www.bugsnag.com), [Sentry](https://sentry.io/), and [HotJar](https://www.hotjar.com/).
